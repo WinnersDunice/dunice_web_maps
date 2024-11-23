@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import CanvasView from './views/CanvasView.vue'; 
 import Login from './views/AuthPage.vue'; 
+import Profile from './views/ProfileView.vue'
 const routes = [
 
   {
@@ -14,6 +15,11 @@ const routes = [
     path: '/canvas',
     name: 'CanvasView',
     component: CanvasView,
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile,
   },
 ];
 
