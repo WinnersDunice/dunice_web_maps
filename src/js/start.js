@@ -67,14 +67,31 @@ state.set("canvasTitle", svgCanvas.getDocumentTitle());
 state.set("serveImage", false);
 const objects = {
   "Cтолы": {
-    "Стол деревянный":"table1.png",
-    "Стол 2":"table2.png",
-    "Стол 3":"table3.png",
-    "Стол 4":"table4.png",
+    "Стол прямоугольный":"Table1.png",
+    "Стол круглый":"Table2.png",
+    "Стол П-образный":"Table3.png",
+    "Стол угловой":"Table4.png",
     },
   "Утварь кухонная":{
-    "Кулер":"cooler.png"
-  }
+    "Кофемашина":"CoffeeMachine.png",
+    "Холодильник":"Fridge.png",
+    "Автомат с напитками":"DrinkMachine.png",
+    "Кулер":"Cooler.png",
+  },
+  "Техника":{
+    "Монитор":"Monitor.png",
+    "Системный блок":"ComputerSystemUnit.png",
+    "Настольная лампа":"Lamp.png",
+  },
+  "Мебель":{
+    "Тумбочка":"Stand.png",
+    "Шкаф":"Wardrobe.png",
+  },
+  "Кресла":{
+    "Стул":"Chair1.png",
+    "Стул игровой":"Chair2.png",
+    "Пуфик":"Pouf.png",
+  },
 }
 
 const API = "https://api.dunicewinners.ru";
