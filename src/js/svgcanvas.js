@@ -5361,17 +5361,14 @@ this.save = function() {
   var filename = title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
   var extension = "svg";
   //saveAs(blob, `${filename}.${extension}`, dropAutoBOM);
-  $.ajax({
-    url:`${API}/mongo/svgImages/`,
-    type: 'POST',
-    dataType: 'json',
-    processData: false,
-    data:{
+  console.log(`${API}/mongo/svgImages/`)
+  $.post(`${API}/mongo/svgImages/`, 
+    {
     data:blob,
     name: name,
     officeid: id
-    },
-  })
+  },
+    {proccedData:false})
 };
 
 // Function: rasterExport
