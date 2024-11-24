@@ -5337,7 +5337,7 @@ this.open = function() {
   // Nothing by default, handled by optional widget/extension
 };
 
-// Function: save
+// Function: savjjjjjjje
 // Serializes the current drawing into SVG XML text and returns it to the 'saved' handler.
 // This function also includes the XML prolog.  Clients of the SvgCanvas bind their save
 // function to the 'saved' event.
@@ -5348,7 +5348,9 @@ this.save = function() {
   // remove the selected outline before serializing
   clearSelection();
   save_options.apply = true;
-  
+  let id = urlParams.get('id');
+  let name =  $('#canvas_title').val();
+   
   // no need for doctype, see http://jwatt.org/svg/authoring/#doctype-declaration
   var str = this.svgCanvasToString();
   var illutratorCompat = true;
@@ -5358,7 +5360,18 @@ this.save = function() {
   var title = state.get("canvasTitle");
   var filename = title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
   var extension = "svg";
-  saveAs(blob, `${filename}.${extension}`, dropAutoBOM);
+  //saveAs(blob, `${filename}.${extension}`, dropAutoBOM);
+  $.ajax({
+    url:`${API}/mongo/svgImages/`,
+    type: 'POST',
+    dataType: 'json',
+    processData: false,
+    data:{
+    data:blob,
+    name: name,
+    officeid: id
+    },
+  })
 };
 
 // Function: rasterExport

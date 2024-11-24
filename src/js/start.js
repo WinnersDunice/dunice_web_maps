@@ -20,6 +20,8 @@ editor.contextMenu = new MD.ContextMenu();
 editor.darkmode = new MD.Darkmode();
 editor.title = new MD.Title();
 
+
+const urlParams = new URLSearchParams(window.location.search);
 // bind the selected event to our function that handles updates to the UI
 svgCanvas.bind("selected", editor.selectedChanged);
 svgCanvas.bind("transition", editor.elementTransition);
@@ -75,6 +77,10 @@ const objects = {
   }
 }
 
+const API = "https://api.dunicewinners.ru";
+
+
+
 var servingImage = false;
 for(category in objects ) {
   $(`<div class="menu_item disabled">${category}</div>`).appendTo("#objects_list");
@@ -88,50 +94,41 @@ for(category in objects ) {
       servingImage = true;
       state.set("serveImage", true);
       $('#menu_bar').removeClass('active')
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", `https://api.dunicewinners.ru/static/${e.target.id}`);
-      xhr.responseType = "blob";
-      xhr.onload = function (e) {
-        var urlCreator = window.URL || window.webkitURL;
-        console.log(this.response, typeof this.response);
-        var imageUrl = urlCreator.createObjectURL(this.response);
-          insertNewImage = function(img_width, img_height){
-              var newImage = svgCanvas.addSvgElementFromJson({
-              "element": "image",
-              "attr": {
-                "x": 0,
-                "y": 0,
-                "width": img_width,
-                "height": img_height,
-                "id": svgCanvas.getNextId(),
-                "style": "pointer-events:inherit"
-              }
-            });
-            svgCanvas.setHref(newImage, imageUrl);
-            svgCanvas.selectOnly([newImage])
-            svgCanvas.alignSelectedElements("m", "page")
-            svgCanvas.alignSelectedElements("c", "page")
-            editor.panel.updateContextPanel();
+      var imageUrl = `${API}/static/${e.target.id}`;
+      insertNewImage = function(img_width, img_height){
+          var newImage = svgCanvas.addSvgElementFromJson({
+          "element": "image",
+          "attr": {
+            "x": 0,
+            "y": 0,
+            "width": img_width,
+            "height": img_height,
+            "id": svgCanvas.getNextId(),
+            "style": "pointer-events:inherit",
+            "class": selected_group,
           }
-          // put a placeholder img so we know the default dimensions
-          var img_width = 100;
-          var img_height = 100;
-          var img = new Image()
-          img.src = imageUrl;
-          document.body.appendChild(img);
+        });
+        svgCanvas.setHref(newImage, imageUrl);
+        svgCanvas.selectOnly([newImage])
+        svgCanvas.alignSelectedElements("m", "page")
+        svgCanvas.alignSelectedElements("c", "page")
+        editor.panel.updateContextPanel();
+      }
+      // put a placeholder img so we know the default dimensions
+      var img_width = 100;
+      var img_height = 100;
+      var img = new Image()
+      img.src = imageUrl;
+      document.body.appendChild(img);
 
-          img.onload = function() {
-            img_width = img.offsetWidth
-            img_height = img.offsetHeight
-            insertNewImage(img_width, img_height);
-            document.body.removeChild(img);
-            console.log("Loaded");
-            servingImage = false;
-          }
-        }
-      
-      console.log("aha");
-      xhr.send();
+      img.onload = function() {
+        img_width = img.offsetWidth
+        img_height = img.offsetHeight
+        insertNewImage(img_width, img_height);
+        document.body.removeChild(img);
+        console.log("Loaded");
+        servingImage = false;
+      }
       });
 
   }

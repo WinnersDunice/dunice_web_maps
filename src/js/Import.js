@@ -6,15 +6,33 @@ MD.Import = function(){
   $importInput.on("change", importImage);
   $openInput.on("change", openImage);
 
-  function importImage(blob){
+  function importImage(e){
     $('#menu_bar').removeClass('active')
     if (!window.FileReader) return;
     //e.stopPropagation();
     //e.preventDefault();
     workarea.removeAttribute("style");
     $('#main_menu').hide();
+    var file = null;
+    if (e.type === "drop") file = e.dataTransfer.files[0]
+    else file = this.files[0];
+    if (!file) return $.alert("File not found");
+    if (file.type.indexOf("image") === -1) return $.alert("File is not image"); 
 
     //svg handing
+    if(file.type.indexOf("svg") != -1) {
+      var reader = new FileReader();
+      reader.onloadend = function(e) {
+        svgCanvas.importSvgString(e.target.result, true);
+        //svgCanvas.ungroupSelectedElement();
+        svgCanvas.alignSelectedElements("m", "page");
+        svgCanvas.alignSelectedElements("c", "page");
+      };
+      reader.readAsText(file);
+    }
+
+    //image handling
+    else {
       var reader = new FileReader();
       reader.onloadend = function(e) {
         // lets insert the new image until we know its dimensions
@@ -37,11 +55,10 @@ MD.Import = function(){
           editor.panel.updateContextPanel();
         }
         // put a placeholder img so we know the default dimensions
-        var url = window.URL || window.webkitURL;
         var img_width = 100;
         var img_height = 100;
         var img = new Image()
-        img.src = url.createObjectURL(data); 
+        img.src = e.target.result
         document.body.appendChild(img);
         img.onload = function() {
           img_width = img.offsetWidth
@@ -50,11 +67,11 @@ MD.Import = function(){
           document.body.removeChild(img);
         }
       };
-      console.log("data is", blob);
-      reader.readAsDataURL(blob)
-  }
+      reader.readAsDataURL(file)
+    }
     
     //editor.saveCanvas();
+  }
 
   function loadSvgString(str, callback) {
     var success = svgCanvas.setSvgString(str) !== false;
@@ -117,6 +134,5 @@ MD.Import = function(){
   this.place = place;
   this.open = open;
   this.loadSvgString = loadSvgString;
-  this.importImage = importImage;
 
 }

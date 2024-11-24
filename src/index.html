@@ -155,27 +155,28 @@
 
 <div id="panels" class="tools_panel">
 
+
+
+
   <div id="canvas_panel" class="context_panel">
     
-    <h4>Canvas</h4>
+    <h4>Оффис</h4>
 
-    <div class="draginputs">
-
+    <div class="draginputs" id="office_drugs">
 
       <label class="draginput twocol textcontent" data-title="Change Content">
         <input id="canvas_title" type="text" />
-        <span>Title</span>
+        <span>Название</span>
       </label>
-
 
       <label data-title="Change canvas width" class="draginput">
         <input id="canvas_width" type="text" pattern="[0-9]*" value="800" />
-        <span class="icon_label">Width</span>
+        <span class="icon_label">Ширина</span>
       </label>
 
       <label data-title="Change canvas height" class="draginput">
         <input id="canvas_height" type="text" pattern="[0-9]*" value="600" />
-        <span class="icon_label">Height</span>
+        <span class="icon_label">Высота</span>
       </label>
       
       <label data-title="Change canvas color" class="draginput">
@@ -197,38 +198,14 @@
           <option id="selectedPredefined" selected="selected">Custom</option>
           <option id="fitToContent" value="content">Fit to Content</option>
 
-          <optgroup label="Social Media">
-            <option value="1012x506">Twitter Post (1012 × 506)</option>
-            <option value="1500x500">Twitter Header (1500 × 500)</option>
-            <option value="1200x630">Facebook Post (1200 × 630)</option>
-            <option value="820x312">Facebook Cover (820 × 312)</option>
-            <option value="1080x1080">Instagram Post (1080 × 1080)</option>
-            <option value="1080x1920">Instagram Story (1080 × 1920)</option>
-            <option value="300">Dribble Shot (400 × 300)</option>
-            <option value="800x600">Dribble Shot HD (800 × 600)</option>
-            <option value="1584x396">LinkedIn Cover (1584 × 396)</option>
-          </optgroup>
-
-          <optgroup label="Presentation">
-            <option value="1920x1080">16:9 (1920 × 1080)</option>
-            <option value="1024x768">4:3 (1024 × 768)</option>
-          </optgroup>
-          
-          <optgroup label="Desktop">
-            <option value="1140x1024">Desktop (1140 × 1024)</option>
-            <option value="375x700">MacBook (834 × 1194)</option>
-            <option value="1440x900">MacBook Pro (1024 × 1366)</option>
-            <option value="1500x1000">Surface Book (1440 × 990)</option>
-            <option value="1280x720">iMac (1368 × 912)</option>
-          </optgroup>
 
 
           <optgroup label="Tablet">
-            <option value="414x896">iPad Mini (768 × 1024)</option>
-            <option value="375x812">iPad Pro 11" (834 × 1194)</option>
+            <option value="414x896">iPad Mini (768 × 1024)      </option>
+            <option value="375x812">iPad Pro 11" (834 × 1194)   </option>
             <option value="375x812">iPad Pro 12.9" (1024 × 1366)</option>
-            <option value="414x736">Surface Pro 3 (1440 × 990)</option>
-            <option value="414x736">Surface Pro 4 (1368 × 912)</option>
+            <option value="414x736">Surface Pro 3 (1440 × 990)  </option>
+            <option value="414x736">Surface Pro 4 (1368 × 912)  </option>
           </optgroup>
 
           <optgroup label="Phone">
@@ -253,6 +230,19 @@
         <div class="caret"></div>
         <label id="resolution_label">Custom</label>
       </div>
+
+
+
+      <button class="twocol textcontent button-25" data-title="Change Content">
+        <h4 class="canvas_title" type="text">Сохранить</h4>
+      </button>
+      
+
+
+      <button class="twocol textcontent button-25" id="add_group" data-title="Change Content">
+        <h4 class="canvas_title" type="text">Добавить группу</h4>
+      </button>
+
 
     </div>
   </div>
@@ -293,11 +283,11 @@
       </label>
       <label class="draginput">
         <input id="image_width" class="attr_changer" data-title="Change image width" data-attr="width" pattern="[0-9]*" />
-        <span class="icon_label">Width</span>
+        <span class="icon_label">Ширина</span>
       </label>
       <label class="draginput">
         <input id="image_height" class="attr_changer" data-title="Change image height" data-attr="height" pattern="[0-9]*" />
-        <span class="icon_label">Height</span>
+        <span class="icon_label">Высота</span>
       </label>
     </div>
   </div>
@@ -585,7 +575,7 @@
     <div class="draginputs">
       <label class="draginput" data-title="Change stroke">
         <input id="stroke_width" size="2" value="1" data-attr="stroke-width" min="0" max="99" step="1" />
-        <span class="icon_label">Width</span>
+        <span class="icon_label">Ширина</span>
       </label>
       <div class="stroke_tool draginput"> 
         <span>Dash</span>
@@ -778,7 +768,75 @@
   <script type="text/javascript" src="js/lib/filesaver.js"></script>
   <script type="text/javascript" src="js/paste.js"></script>
   <script type="text/javascript" src="js/modals.js"></script>
+  <script type="text/javascript" src="js/groups.js"></script>
   <script type="text/javascript" src="js/start.js"></script>
   <!-- endbuild -->
 </body>
 </html>
+
+<style>
+/* CSS */
+.button-25 {
+  background-color: #36A9AE;
+  background-image: linear-gradient(#37ADB2, #329CA0);
+  border: 1px solid #2A8387;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0 1px 1px;
+  cursor: pointer;
+  display: block;
+  margin-right:5px;
+  font-family: -apple-system,".SFNSDisplay-Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 17px;
+  line-height: 100%;
+  outline: 0;
+  padding: 11px 15px 12px;
+  text-align: center;
+  transition: box-shadow .05s ease-in-out,opacity .05s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+  margin-top: 10px;
+  color: #FFFFFF;
+}
+
+.button-25:hover {
+  box-shadow: rgba(255, 255, 255, 0.3) 0 0 2px inset, rgba(0, 0, 0, 0.4) 0 1px 2px;
+  text-decoration: none;
+  transition-duration: .15s, .15s;
+}
+
+.button-25:active {
+  box-shadow: rgba(0, 0, 0, 0.15) 0 2px 4px inset, rgba(0, 0, 0, 0.4) 0 1px 1px;
+}
+
+.button-25:disabled {
+  cursor: not-allowed;
+  opacity: .6;
+}
+
+.button-25:disabled:active {
+  pointer-events: none;
+}
+
+.button-25:disabled:hover {
+  box-shadow: none;
+}
+
+
+
+
+
+.lighted{
+  margin-right: 14px;
+  display: block;
+  float: left;
+  box-shadow: 3px 3px 1px #ccc;
+  -webkit-box-shadow: 3px 3px 1px #ccc;
+  -moz-box-shadow: 3px 3px 1px #ccc;
+}
+
+</style>
+
+
+
