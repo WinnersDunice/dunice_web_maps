@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import CanvasView from './views/CanvasView.vue'; 
 import Login from './views/AuthPage.vue'; 
 import Profile from './views/ProfileView.vue'
+import Main from './views/MainPage.vue'
 const routes = [
 
   {
@@ -21,6 +22,12 @@ const routes = [
     name: 'Profile',
     component: Profile,
   },
+  {
+    path: '/',
+    name: 'Main',
+    component: Main,
+  },
+  
 ];
 
 const router = createRouter({

@@ -10,7 +10,7 @@
 
             <input
               type="text"
-              v-model="username"
+              v-model="login"
               placeholder="Логин"
               class="border p-4 mb-4 w-full rounded-xl text-lg head1 hover:border-green-500 hover:shadow-lg focus:shadow-md transition duration-200"
               required
@@ -42,8 +42,7 @@
 export default {
   data() {
     return {
-      email: '',
-      username: '',
+      login: '',
       password: '',
       errorMessage: '', // Состояние для сообщения об ошибке
     };
@@ -58,11 +57,11 @@ export default {
         }
       }, 100); // Проверяем каждые 100 мс
     },
+    
     async handleSubmit() {
-      const url = 'http://dunicewinners.ru:443/login';
+      const url = 'https://api.dunicewinners.ru/login';
       const payload = {
-        username: this.username,
-        email: this.email,
+        login: this.login,
         password: this.password,
       };
 
@@ -70,6 +69,7 @@ export default {
         const response = await fetch(url, {
           method: 'POST',
           headers: {
+            
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(payload),
